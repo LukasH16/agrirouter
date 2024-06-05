@@ -23,7 +23,7 @@ classifiers = [
 ]
 dependencies = [
     "requests",
-    "protobuf~=3.18.0"
+    "protobuf~=3.20.0"
 ]
 dynamic = ["version"]
 
