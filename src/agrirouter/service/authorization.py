@@ -19,7 +19,7 @@ class AuthorizationService(EnvironmentalService):
 
     def get_auth_request_url(self, parameters: AuthUrlParameter) -> str:
         auth_parameters = parameters.get_parameters()
-        return BaseEnvironment.get_secured_onboarding_authorization_url(BaseEnvironment, **auth_parameters)
+        return BaseEnvironment.get_secured_onboarding_authorization_url(self, **auth_parameters)
 
     def extract_auth_response(self, url: str) -> AuthResponse:
         parsed_url = urlparse(url)
