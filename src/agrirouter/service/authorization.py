@@ -3,6 +3,7 @@ from urllib.parse import urlparse, parse_qs
 from agrirouter.api.env import EnvironmentalService
 from agrirouter.service.dto.response.authorization import AuthResponse
 from agrirouter.service.parameter.authorization import AuthUrlParameter
+from agrirouter.api.env import BaseEnvironment
 
 
 class AuthorizationService(EnvironmentalService):
@@ -18,7 +19,7 @@ class AuthorizationService(EnvironmentalService):
 
     def get_auth_request_url(self, parameters: AuthUrlParameter) -> str:
         auth_parameters = parameters.get_parameters()
-        return self._environment.get_secured_onboarding_authorization_url(**auth_parameters)
+        return BaseEnvironment.get_secured_onboarding_authorization_url(**auth_parameters)
 
     def extract_auth_response(self, url: str) -> AuthResponse:
         parsed_url = urlparse(url)
@@ -26,7 +27,7 @@ class AuthorizationService(EnvironmentalService):
         return AuthResponse(query_params)
 
     def verify_auth_response(self, response, public_key=None):
-        public_key = public_key if public_key else self._environment.get_env_public_key()
+        public_key = public_key if public_key else BaseEnvironment.get_env_public_key()
         response.verify(public_key)
 
     @staticmethod
